@@ -1,1 +1,6 @@
 rootProject.name = 'hhCinema'
+include 'domain'
+include 'infrastructure'
+include 'application'
+include 'adapter'
+

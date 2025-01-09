@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/adapter/hhCinema.adapter.main.iml" filepath="$PROJECT_DIR$/.idea/modules/adapter/hhCinema.adapter.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/application/hhCinema.application.main.iml" filepath="$PROJECT_DIR$/.idea/modules/application/hhCinema.application.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/hhCinema.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/hhCinema.domain.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/hhCinema.infrastructure.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/hhCinema.infrastructure.main.iml" />
+    </modules>
+  </component>
+</project>
