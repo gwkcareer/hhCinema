@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
-    container_name: hhcinema_db
+    container_name: hhcinema
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -16,3 +14,11 @@ services:
 
 volumes:
   db_data:
+
+
+# Docker Compose 실행 (프로젝트 루트 디렉토리로 이동 한 다음)
+#  > docker compose up
+
+# Docker Compose 실행중 확인
+#  > docker compose ps
+#  NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
