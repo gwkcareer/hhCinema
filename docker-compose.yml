@@ -1,23 +1,24 @@
 services:
   db:
     image: mysql:8.0
-    container_name: hhcinema
+    container_name: hhcinema_db
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
-      - db_data:/var/lib/mysql
-
-volumes:
-  db_data:
+      - ./sql-scripts/:/docker-entrypoint-initdb.d/
 
 
-# Docker Compose 실행 (프로젝트 루트 디렉토리로 이동 한 다음)
-#  > docker compose up
+# (프로젝트 루트 디렉토리로 이동 한 다음)
+# Docker Compose Volumn 삭제
+#  > docker-compose down -v
+
+# Docker Compose 실행
+#  > docker compose up -d
 
 # Docker Compose 실행중 확인
 #  > docker compose ps

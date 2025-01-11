@@ -3,4 +3,5 @@ include 'domain'
 include 'infrastructure'
 include 'application'
 include 'adapter'
+include 'common'
 

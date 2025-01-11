@@ -1,51 +1,39 @@
 package com.hanghae.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "movie")
-public class Movie {
+@Getter
+@Setter
+@NoArgsConstructor
+public class Movie extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "movie_id")
-    private Integer id;
+    private Integer movieId; // 영화 ID
 
     @Column(nullable = false, length = 100)
-    private String title;
+    private String title; // 영화 제목
 
     @Column(length = 50)
-    private String rating;
+    private String rating; // 영상물 등급
 
-    @Column(name = "release_date")
-    private LocalDate releaseDate;
+    private LocalDate releaseDate; // 개봉일
 
-    @Column(name = "thumbnail_url", length = 255)
-    private String thumbnailUrl;
+    private String thumbnailUrl; // 썸네일 이미지(URL)
 
-//    @ManyToOne
-//    @JoinColumn(name = "genre_id", nullable = false)
-//    private Genre genre;
+    private Integer duration; // 러닝 타임 (분)
 
-    private Integer duration;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_id", nullable = false)
+    private Genre genre; // 장르 (외래키)
 
-    @Column(name = "created_by", length = 20)
-    private String createdBy;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_by", length = 20)
-    private String updatedBy;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    // 기본 생성자
-    protected Movie() {}
-
-    // 생성자, Getter, Setter 생략
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Showtime> showtimes; // 상영 일정 (연관 관계)
 }
