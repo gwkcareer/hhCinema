@@ -1,4 +1,12 @@
 services:
+  redis:
+    image: redis
+    container_name: hhcinema_redis
+    ports:
+      - "6379:6379" # Redis 기본 포트
+    networks:
+      - hh-cinema-network
+
   db:
     image: mysql:8.0
     container_name: hhcinema_db
@@ -11,6 +19,12 @@ services:
       - "3307:3306"
     volumes:
       - ./sql-scripts/:/docker-entrypoint-initdb.d/
+    networks:
+      - hh-cinema-network
+
+networks:
+  hh-cinema-network:
+    driver: bridge
 
 
 # (프로젝트 루트 디렉토리로 이동 한 다음)
@@ -23,3 +37,7 @@ services:
 # Docker Compose 실행중 확인
 #  > docker compose ps
 #  NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
+
+# > docker logs redis
+# > docker logs hhcinema_db
+

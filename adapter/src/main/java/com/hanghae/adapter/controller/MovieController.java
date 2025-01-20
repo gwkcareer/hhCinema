@@ -1,6 +1,7 @@
 package com.hanghae.adapter.controller;
 
 import com.hanghae.application.service.MovieService;
+import com.hanghae.application.service.RedisService;
 import com.hanghae.common.dto.MovieResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,9 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
+
+    @Autowired
+    private RedisService redisService;
 
     @Autowired
     public MovieController(MovieService movieService) {
