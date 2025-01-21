@@ -15,6 +15,9 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      # 문자셋 설정
+      TZ: Asia/Seoul
+    command: --skip-character-set-client-handshake
     ports:
       - "3307:3306"
     volumes:

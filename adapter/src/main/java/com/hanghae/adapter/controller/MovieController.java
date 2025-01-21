@@ -1,7 +1,6 @@
 package com.hanghae.adapter.controller;
 
 import com.hanghae.application.service.MovieService;
-import com.hanghae.application.service.RedisService;
 import com.hanghae.common.dto.MovieResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +13,13 @@ public class MovieController {
     private final MovieService movieService;
 
     @Autowired
-    private RedisService redisService;
-
-    @Autowired
     public MovieController(MovieService movieService) {
         this.movieService = movieService;
     }
 
     @GetMapping
-    public List<MovieResponseDto> getMovies() {
-        return movieService.getMovies();
+    public List<MovieResponseDto> getMoviesWithCache(@RequestParam(value = "title", required = false) String title,
+                                                   @RequestParam(value = "genre", required = false) String genre){
+        return movieService.getMoviesWithCache(title, genre);
     }
 }
