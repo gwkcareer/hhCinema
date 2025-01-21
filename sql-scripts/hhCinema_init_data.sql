@@ -10,19 +10,6 @@ VALUES
 ('로맨스', '사랑과 감정을 다룬 영화', 'admin', NOW()),
 ('공포', '두려움을 느끼게 하는 영화', 'admin', NOW());
 
--- Movie 데이터 삽입(9개)
-INSERT INTO `movie` (title, rating, release_date, thumbnail_url, genre_id, duration, created_by, created_at)
-VALUES
-('범죄도시 3', '15세 관람가', '2025-01-01', 'http://example.com/thumbnail6.jpg', 1, 120, 'admin', NOW()),
-('극한직업', '12세 관람가', '2025-01-02', 'http://example.com/thumbnail7.jpg', 2, 110, 'admin', NOW()),
-('국제시장', '전체 관람가', '2025-01-03', 'http://example.com/thumbnail8.jpg', 3, 126, 'admin', NOW()),
-('탑건: 매버릭', '12세 관람가', '2025-01-04', 'http://example.com/thumbnail9.jpg', 1, 130, 'admin', NOW()),
-('기생충', '청소년 관람불가', '2025-01-05', 'http://example.com/thumbnail10.jpg', 4, 131, 'admin', NOW()),
-('어벤져스: 엔드게임', '12세 관람가', '2025-01-06', 'http://example.com/thumbnail11.jpg', 5, 181, 'admin', NOW()),
-('반지의 제왕', '12세 관람가', '2025-01-07', 'http://example.com/thumbnail12.jpg', 6, 200, 'admin', NOW()),
-('라라랜드', '15세 관람가', '2025-01-08', 'http://example.com/thumbnail13.jpg', 7, 128, 'admin', NOW()),
-('컨저링', '청소년 관람불가', '2025-01-09', 'http://example.com/thumbnail14.jpg', 8, 112, 'admin', NOW());
-
 -- User 데이터 삽입(10개)
 INSERT INTO `user` (user_name, created_by, created_at)
 VALUES
