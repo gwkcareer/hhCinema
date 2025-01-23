@@ -1,3 +1,7 @@
-### 모든 영화 조회
-GET http://localhost:8080/api/movies
+### 모든 영화 조회 (장르 기준)
+GET http://localhost:8080/api/movies?genre=액션
+Content-Type: application/json
+
+### 모든 영화 조회 (255자 초과 제목으로 테스트)
+GET http://localhost:8080/api/movies?title=This is a movie title that exceeds the 255 character limit imposed by the validation constraint. It is intentionally created to test the behavior of the validation mechanism within the API and ensure that the title field properly restricts input to a maximum of 255 characters. This should trigger a validation error if everything is correctly implemented.
 Content-Type: application/json

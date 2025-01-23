@@ -44,3 +44,10 @@ networks:
 # > docker logs redis
 # > docker logs hhcinema_db
 
+# Docker 컨테이너 내부에서 MySQL 연결
+# > docker exec -it hhcinema_db bash
+# > mysql -u root -proot
+# > show databases
+# > use hhcinema_db
+
+

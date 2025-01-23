@@ -1,11 +1,15 @@
 package com.hanghae.application.service;
 
+import com.hanghae.common.dto.MovieRequestDto;
 import com.hanghae.common.dto.MovieResponseDto;
 
 import com.hanghae.domain.entity.Movie;
+import com.hanghae.domain.entity.QGenre;
 import com.hanghae.domain.entity.QMovie;
+import com.hanghae.domain.entity.QShowtime;
 import com.hanghae.domain.repository.MovieRepository;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +45,10 @@ public class MovieService {
      * 4. 인기 검색어 관리: title 조회 횟수가 일정 기준(예: 100회) 이상이면 "popular" 키로 별도 캐싱.
      *    - "movies:popular:title={title}" 형식으로 키 생성.
      */
-    public List<MovieResponseDto> getMoviesWithCache(String title, String genre) {
+    public List<MovieResponseDto> getMoviesWithCache(MovieRequestDto requestDto) {
+        String title = requestDto.getTitle();
+        String genre = requestDto.getGenre();
+
         // 너무 짧은 검색어는 캐싱하지 않고 바로 조회
         if (title != null && title.length() < 3) {
             return fetchMovies(title, genre);
@@ -83,16 +90,41 @@ public class MovieService {
         // 현재 날짜를 기준으로 상영 중인 영화 조회
         LocalDate today = LocalDate.now();
         QMovie qMovie = QMovie.movie;
-
+        QShowtime qShowtime = QShowtime.showtime;
+/*
+        // [2주차] - QueryDSL - entity 기반 Projection (비효율적)
         List<Movie> movies = jpaQueryFactory.selectFrom(qMovie)
                 .where(
-                        qMovie.releaseDate.loe(today), // 개봉일이 오늘 이전 또는 오늘인 경우
                         title != null ? qMovie.title.containsIgnoreCase(title) : null,
-                        genre != null ? qMovie.genre.genreName.containsIgnoreCase(genre) : null
+                        genre != null ? qMovie.genre.genreName.equalsIgnoreCase(genre) : null,
+                        qMovie.releaseDate.loe(today) // 개봉일이 오늘 이전 또는 오늘인 경우
                 )
                 .fetch();
-
         return convertToDto(movies);
+*/
+        // [2주차] - QueryDSL - DTO 기반 Projection (필요한 필드만 조회, 매핑)
+        List<MovieResponseDto> movies = jpaQueryFactory.select(
+                        Projections.fields(MovieResponseDto.class,
+                                qMovie.title.as("title"),
+                                qMovie.rating.as("rating"),
+                                qMovie.releaseDate.as("releaseDate"),
+                                qMovie.thumbnailUrl.as("thumbnailUrl"),
+                                qMovie.duration.as("duration"),
+                                qMovie.genre.genreName.as("genre"),
+                                qShowtime.theater.theaterName.as("theaterName"),
+                                qShowtime.startTime.as("startTime"),
+                                qShowtime.endTime.as("endTime")
+                        )
+                )
+                .from(qMovie)
+                .leftJoin(qMovie.showtimes, qShowtime)
+                .where(
+                        title != null ? qMovie.title.containsIgnoreCase(title) : null,
+                        genre != null ? qMovie.genre.genreName.equalsIgnoreCase(genre) : null,
+                        qMovie.releaseDate.loe(today)
+                )
+                .fetch();
+        return movies;
     }
 
     /**

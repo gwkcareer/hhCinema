@@ -1,7 +1,9 @@
 package com.hanghae.adapter.controller;
 
 import com.hanghae.application.service.MovieService;
+import com.hanghae.common.dto.MovieRequestDto;
 import com.hanghae.common.dto.MovieResponseDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +20,7 @@ public class MovieController {
     }
 
     @GetMapping
-    public List<MovieResponseDto> getMoviesWithCache(@RequestParam(value = "title", required = false) String title,
-                                                   @RequestParam(value = "genre", required = false) String genre){
-        return movieService.getMoviesWithCache(title, genre);
+    public List<MovieResponseDto> getMoviesWithCache(@Valid @ModelAttribute MovieRequestDto requestDto){
+        return movieService.getMoviesWithCache(requestDto);
     }
 }
